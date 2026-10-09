@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const experienceController_1 = require("../controllers/experienceController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+router.get('/', (req, res, next) => experienceController_1.experienceController.getAll(req, res, next));
+router.get('/:id', (req, res, next) => experienceController_1.experienceController.getById(req, res, next));
+router.post('/', authMiddleware_1.authenticateAdmin, (req, res, next) => experienceController_1.experienceController.create(req, res, next));
+router.put('/:id', authMiddleware_1.authenticateAdmin, (req, res, next) => experienceController_1.experienceController.update(req, res, next));
+router.delete('/:id', authMiddleware_1.authenticateAdmin, (req, res, next) => experienceController_1.experienceController.delete(req, res, next));
+exports.default = router;

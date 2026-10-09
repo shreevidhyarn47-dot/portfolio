@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const internshipController_1 = require("../controllers/internshipController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+router.get('/', (req, res, next) => internshipController_1.internshipController.getAll(req, res, next));
+router.get('/:id', (req, res, next) => internshipController_1.internshipController.getById(req, res, next));
+router.post('/', authMiddleware_1.authenticateAdmin, (req, res, next) => internshipController_1.internshipController.create(req, res, next));
+router.put('/:id', authMiddleware_1.authenticateAdmin, (req, res, next) => internshipController_1.internshipController.update(req, res, next));
+router.delete('/:id', authMiddleware_1.authenticateAdmin, (req, res, next) => internshipController_1.internshipController.delete(req, res, next));
+exports.default = router;
